@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     var player:Boolean = true
     var turnCount:Int = 0
     var boardStatus = Array(3){IntArray(3)}
+    var win = -1;
 
     private fun initializeBoardStatus() {
         for(i in 0..2)
@@ -108,14 +109,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if(win != -1)
             {
                 txtPlayer.setText(if(win == 1) "Player X is WINNER" else "Player Y is WINNER")
+                disable()
+
             }
         }
 
 
     }
 
+    private fun disable() {
+
+        for(i in board)
+            for(btn in i)
+            {
+                btn.isEnabled = false
+            }
+
+    }
+
     private fun checkWinner(): Int {
-        var win = -1
+        win = -1
         for(i in 0..2)
         {
             if(boardStatus[i][0] == boardStatus[i][1] && boardStatus[i][1] == boardStatus[i][2])
